@@ -1,6 +1,6 @@
 # 🧬 Utkarsh Patel — Portfolio
 
-🌐 **Live site:** [https://utkarshpatel2405.github.io](https://utkarshpatel2405.github.io)
+🌐 **Live site:** [https://utkarshpatel2405.github.io](https://utkarshpatel2405.github.io/UtkarshPatel2405/)
 
 ---
 
