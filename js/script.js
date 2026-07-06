@@ -1,88 +1,48 @@
-// ===== UTILITIES =====
-const $ = (sel, ctx = document) => ctx.querySelector(sel);
-const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
+const $ = (s, c = document) => c.querySelector(s);
+const $$ = (s, c = document) => [...c.querySelectorAll(s)];
 
-// ===== NAV HIDE ON SCROLL =====
 (() => {
-  const nav = $('nav');
-  let lastScroll = 0;
+  const btn = $('#menu-btn');
+  const links = $('#nav-links');
+  if (!btn || !links) return;
 
-  window.addEventListener('scroll', () => {
-    const cur = window.scrollY;
-    if (cur > lastScroll && cur > 100) {
-      nav.classList.add('hidden');
-    } else {
-      nav.classList.remove('hidden');
-    }
-    lastScroll = cur;
-  }, { passive: true });
-})();
-
-// ===== MOBILE NAV TOGGLE =====
-(() => {
-  const toggle = $('.nav-toggle');
-  const mobile = $('.nav-mobile');
-
-  if (!toggle || !mobile) return;
-
-  toggle.addEventListener('click', () => {
-    toggle.classList.toggle('open');
-    mobile.classList.toggle('open');
+  btn.addEventListener('click', () => {
+    const open = links.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(open));
   });
 
-  $$('.nav-mobile a').forEach(a => {
+  $$('#nav-links a').forEach(a => {
     a.addEventListener('click', () => {
-      toggle.classList.remove('open');
-      mobile.classList.remove('open');
+      links.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
     });
   });
 })();
 
-// ===== ACTIVE NAV LINK =====
 (() => {
-  const navLinks = $$('nav a[href^="#"]');
-  const sections = $$('section[id]');
+  const sections = $$('section[id], header[id]');
+  const links = $$('.nav-links a');
+  if (!sections.length || !links.length) return;
 
-  if (!navLinks.length || !sections.length) return;
-
-  window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY + 120;
-
-    let current = '';
+  const setActive = () => {
+    const y = window.scrollY + 120;
+    let active = '';
     sections.forEach(s => {
-      if (scrollY >= s.offsetTop) current = s.id;
+      if (y >= s.offsetTop) active = s.id;
     });
+    links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === `#${active}`));
+  };
 
-    navLinks.forEach(a => {
-      a.classList.toggle('active', a.getAttribute('href') === `#${current}`);
-    });
-  }, { passive: true });
+  window.addEventListener('scroll', setActive, { passive: true });
+  setActive();
 })();
 
-// ===== SCROLL REVEAL =====
-(() => {
-  const els = $$('.reveal');
-  if (!els.length) return;
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('visible');
-      });
-    },
-    { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
-  );
-
-  els.forEach(el => observer.observe(el));
-})();
-
-// ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
 (() => {
   $$('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', (e) => {
+    a.addEventListener('click', e => {
       const href = a.getAttribute('href');
-      if (href === '#') return;
-      const target = document.querySelector(href);
+      if (!href || href === '#') return;
+      const target = $(href);
       if (!target) return;
       e.preventDefault();
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -90,47 +50,15 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   });
 })();
 
-// ===== CONTACT FORM =====
 (() => {
-  const form = $('#contact-form');
-  if (!form) return;
+  const els = $$('.reveal');
+  if (!els.length) return;
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const btn = form.querySelector('.btn');
-    if (!btn) return;
-
-    const origText = btn.innerHTML;
-    btn.innerHTML = 'Sent!';
-    btn.style.pointerEvents = 'none';
-    btn.style.opacity = '0.7';
-
-    setTimeout(() => {
-      btn.innerHTML = origText;
-      btn.style.pointerEvents = '';
-      btn.style.opacity = '1';
-    }, 2500);
-
-    form.reset();
-  });
-})();
-
-// ===== PARALLAX FLOATING ICONS =====
-(() => {
-  const icons = $$('.float-icon');
-  if (!icons.length) return;
-
-  document.addEventListener('mousemove', (e) => {
-    const x = (e.clientX / window.innerWidth - 0.5) * 2;
-    const y = (e.clientY / window.innerHeight - 0.5) * 2;
-
-    icons.forEach((icon, i) => {
-      const speed = 4 + i * 2;
-      icon.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
-  }, { passive: true });
-})();
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
 
-// ===== LOG =====
-console.log('%c Utkarsh Patel Portfolio ', 'background:#4ade80;color:#000;font-size:1rem;font-weight:bold;padding:8px 12px;border-radius:4px;');
-console.log('%c Built with ❤️ for drug discovery ', 'color:#a0a0a0;font-size:0.85rem;');
+  els.forEach(el => observer.observe(el));
+})();
