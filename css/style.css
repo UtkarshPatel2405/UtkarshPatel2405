@@ -202,6 +202,13 @@ h3 { font-size: 1.2rem; margin-bottom: 10px; }
 .project p,
 .research-item p { color: var(--muted); font-size: 0.94rem; }
 
+.project-link {
+  color: #e2ebff;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(176, 197, 255, 0.45);
+  padding-bottom: 3px;
+}
+
 .research-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
