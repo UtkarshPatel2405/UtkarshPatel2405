@@ -1,677 +1,227 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Utkarsh Patel | Computational Drug Discovery Scientist</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #000000;
-      --bg-2: #0a0a0a;
-      --bg-3: #111111;
-      --text: #ffffff;
-      --text-dim: #a0a0a0;
-      --text-muted: #555555;
-      --accent: #4ade80;
-      --accent-blue: #3b82f6;
-      --border: rgba(255,255,255,0.06);
-      --yellow: #fbbf24;
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'DM Sans', -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-    ::-webkit-scrollbar { width: 0; }
-    ::selection { background: var(--accent); color: #000; }
-    img { max-width: 100%; height: auto; }
-    a { color: inherit; text-decoration: none; }
-
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-
-    /* === NAV === */
-    nav {
-      position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
-      background: rgba(0,0,0,0.7); backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-    }
-    nav .container { display: flex; align-items: center; justify-content: space-between; height: 72px; }
-    .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; }
-    .nav-logo svg { width: 32px; height: 32px; }
-    .nav-logo span { color: var(--text-dim); font-weight: 400; }
-    .nav-center { display: flex; align-items: center; gap: 32px; }
-    .nav-center a { color: var(--text-dim); font-size: 0.85rem; font-weight: 500; transition: color 0.2s; }
-    .nav-center a:hover { color: var(--text); }
-    .nav-right { display: flex; align-items: center; gap: 16px; }
-    .nav-right a { color: var(--text-dim); font-size: 0.85rem; font-weight: 500; transition: color 0.2s; }
-    .nav-right a:hover { color: var(--text); }
-    .btn-nav { background: var(--accent); color: #000 !important; padding: 8px 20px; border-radius: 100px; font-weight: 600; font-size: 0.85rem; }
-    .btn-nav:hover { opacity: 0.9; }
-    .nav-toggle { display: none; flex-direction: column; gap: 4px; cursor: pointer; background: none; border: none; padding: 4px; }
-    .nav-toggle span { width: 24px; height: 2px; background: #fff; border-radius: 2px; }
-
-    /* === HERO === */
-    #hero { min-height: 90vh; display: flex; align-items: center; padding-top: 72px; position: relative; }
-    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-    .hero-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--accent); margin-bottom: 20px; }
-    .hero-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-    #hero h1 { font-size: clamp(2.2rem,4vw,3.8rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 20px; }
-    #hero h1 .highlight { color: var(--accent); }
-    #hero h1 .outline { -webkit-text-stroke: 1.5px #fff; -webkit-text-fill-color: transparent; }
-    .hero-sub { font-size: 1rem; color: var(--text-dim); max-width: 480px; line-height: 1.7; margin-bottom: 32px; }
-    .btn-hero { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: #000; padding: 14px 32px; border-radius: 100px; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; border: none; cursor: pointer; }
-    .btn-hero:hover { transform: scale(1.02); opacity: 0.9; }
-    .btn-hero svg { width: 18px; height: 18px; }
-    .hero-image { position: relative; }
-    .hero-image-bg {
-      aspect-ratio: 4/3; border-radius: 24px; background: linear-gradient(135deg, var(--bg-3), var(--bg-2));
-      border: 1px solid var(--border); overflow: hidden; position: relative;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .hero-image-bg::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(circle at 30% 60%, rgba(74,222,128,0.03), transparent 60%);
-    }
-    .hero-image-bg .initials { font-size: 6rem; font-weight: 900; color: var(--text-muted); letter-spacing: -0.05em; }
-
-    /* === LOGO BAR === */
-    .logo-bar { padding: 40px 0; border-bottom: 1px solid var(--border); }
-    .logo-bar p { text-align: center; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 24px; font-weight: 600; }
-    .logo-grid { display: flex; justify-content: center; align-items: center; gap: 48px; flex-wrap: wrap; }
-    .logo-grid span { font-size: 1.3rem; font-weight: 700; color: var(--text-muted); letter-spacing: -0.03em; opacity: 0.5; }
-
-    /* === SECTION COMMON === */
-    section { padding: 100px 0; }
-    .section-eyebrow { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; margin-bottom: 8px; }
-    .section-title { font-size: clamp(1.8rem,3vw,2.8rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.15; margin-bottom: 12px; }
-    .section-desc { color: var(--text-dim); font-size: 0.95rem; max-width: 500px; line-height: 1.7; }
-
-    /* === WHY / FEATURES === */
-    #about { background: var(--bg-2); }
-    .about-me-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-top: 48px; }
-    .about-image-block {
-      aspect-ratio: 4/5; border-radius: 24px; background: linear-gradient(135deg, var(--bg-3), var(--bg-2));
-      border: 1px solid var(--border); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden;
-    }
-    .about-image-block .big-text { font-size: 5rem; font-weight: 900; color: var(--text-muted); letter-spacing: -0.05em; }
-    .about-image-block .tag {
-      position: absolute; bottom: 20px; left: 20px; right: 20px; 
-      background: rgba(0,0,0,0.7); backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: 16px; padding: 16px 20px;
-    }
-    .about-image-block .tag strong { display: block; font-size: 0.9rem; }
-    .about-image-block .tag span { font-size: 0.78rem; color: var(--text-dim); }
-
-    .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .feature-card {
-      background: var(--bg-3); border: 1px solid var(--border); border-radius: 16px; padding: 28px;
-      transition: all 0.3s;
-    }
-    .feature-card:hover { border-color: rgba(255,255,255,0.1); }
-    .feature-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(74,222,128,0.06); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
-    .feature-icon svg { width: 20px; height: 20px; stroke: var(--accent); fill: none; stroke-width: 2; }
-    .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
-    .feature-card p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.6; }
-
-    /* === HOW IT WORKS === */
-    .how-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; margin-top: 40px; }
-    .how-step { text-align: center; }
-    .how-icon { width: 56px; height: 56px; border-radius: 16px; background: rgba(251,191,36,0.06); border: 1px solid rgba(251,191,36,0.1); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
-    .how-icon svg { width: 24px; height: 24px; stroke: var(--yellow); fill: none; stroke-width: 1.5; }
-    .how-step h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; }
-    .how-step p { font-size: 0.82rem; color: var(--text-dim); line-height: 1.5; }
-
-    /* === THREE COL BENEFITS === */
-    #skills { background: var(--bg-2); }
-    .benefits-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 40px; }
-    .benefit-col { background: var(--bg-3); border: 1px solid var(--border); border-radius: 20px; padding: 32px; }
-    .benefit-col h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; }
-    .benefit-col ul { list-style: none; display: flex; flex-direction: column; gap: 14px; }
-    .benefit-col li { font-size: 0.88rem; color: var(--text-dim); display: flex; gap: 10px; align-items: flex-start; line-height: 1.5; }
-    .benefit-col li .check { flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%; background: rgba(74,222,128,0.1); display: flex; align-items: center; justify-content: center; margin-top: 2px; }
-    .benefit-col li .check svg { width: 12px; height: 12px; stroke: var(--accent); fill: none; stroke-width: 3; }
-
-    /* === EXPERIENCE === */
-    .exp-grid { display: flex; flex-direction: column; margin-top: 40px; }
-    .exp-item { display: grid; grid-template-columns: 0.25fr 1fr; gap: 32px; padding: 32px 0; border-bottom: 1px solid var(--border); }
-    .exp-item:first-child { border-top: 1px solid var(--border); }
-    .exp-date { font-size: 0.82rem; color: var(--text-muted); font-weight: 600; padding-top: 4px; }
-    .exp-content h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 2px; }
-    .exp-content .org { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 12px; }
-    .exp-content ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
-    .exp-content li { font-size: 0.85rem; color: var(--text-dim); padding-left: 16px; position: relative; line-height: 1.6; }
-    .exp-content li::before { content: ''; position: absolute; left: 0; top: 9px; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); opacity: 0.5; }
-
-    /* === PROJECTS === */
-    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px; }
-    .project-card {
-      background: var(--bg-3); border: 1px solid var(--border); border-radius: 20px; padding: 32px;
-      transition: all 0.3s; cursor: default;
-    }
-    .project-card:hover { border-color: rgba(255,255,255,0.1); }
-    .project-card .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
-    .project-card .tags span { font-size: 0.65rem; font-weight: 600; padding: 4px 12px; border-radius: 100px; border: 1px solid var(--border); color: var(--text-dim); }
-    .project-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
-    .project-card p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.6; }
-    .project-card .arrow { margin-top: 16px; color: var(--accent); font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 6px; }
-
-    /* === PUBLICATIONS === */
-    #publications { background: var(--bg-2); }
-    .pub-list { margin-top: 40px; }
-    .pub-item { padding: 28px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; transition: all 0.3s; cursor: default; }
-    .pub-item:first-child { border-top: 1px solid var(--border); }
-    .pub-item:hover { padding-left: 16px; }
-    .pub-item .title { font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; }
-    .pub-item .venue { font-size: 0.8rem; color: var(--text-muted); }
-    .pub-item .arrow { color: var(--text-muted); font-size: 1.1rem; flex-shrink: 0; }
-
-    /* === TESTIMONIALS === */
-    .testimonials-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 40px; }
-    .testimonial-card {
-      background: var(--bg-3); border: 1px solid var(--border); border-radius: 16px; padding: 28px;
-    }
-    .testimonial-card .quote { font-size: 0.88rem; color: var(--text-dim); line-height: 1.7; margin-bottom: 16px; font-style: italic; }
-    .testimonial-card .author { font-size: 0.82rem; font-weight: 600; color: var(--text-muted); }
-
-    /* === CTA === */
-    .cta-section { background: var(--bg-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 0; text-align: center; }
-    .cta-section h2 { font-size: clamp(1.8rem,3vw,2.8rem); font-weight: 800; letter-spacing: -0.04em; margin-bottom: 20px; }
-    .cta-section .btn-hero { display: inline-flex; }
-
-    /* === CONTACT === */
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 40px; }
-    .contact-info h3 { font-size: 1rem; font-weight: 700; margin-bottom: 16px; }
-    .contact-info p { font-size: 0.88rem; color: var(--text-dim); line-height: 1.7; margin-bottom: 24px; }
-    .contact-line { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; font-size: 0.88rem; }
-    .contact-line .label { color: var(--text-muted); min-width: 70px; }
-    .contact-line a:hover, .contact-line .value { color: var(--text); }
-    .contact-form { display: flex; flex-direction: column; gap: 14px; }
-    .contact-form input, .contact-form textarea {
-      background: var(--bg-3); border: 1px solid var(--border); border-radius: 12px;
-      padding: 16px 20px; color: var(--text); font-family: inherit; font-size: 0.9rem;
-      outline: none; transition: border-color 0.2s;
-    }
-    .contact-form input:focus, .contact-form textarea:focus { border-color: rgba(255,255,255,0.15); }
-    .contact-form textarea { min-height: 120px; resize: vertical; }
-
-    /* === FOOTER === */
-    footer { padding: 60px 0 40px; }
-    .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 2fr; gap: 40px; margin-bottom: 48px; }
-    .footer-brand .logo { font-size: 1.5rem; font-weight: 800; margin-bottom: 16px; }
-    .footer-brand .logo span { color: var(--text-muted); }
-    .footer-brand .social { display: flex; gap: 12px; margin-top: 16px; }
-    .footer-brand .social a { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
-    .footer-brand .social a:hover { border-color: var(--accent); }
-    .footer-brand .social a svg { width: 16px; height: 16px; stroke: var(--text-dim); fill: none; stroke-width: 2; }
-    .footer-brand .social a:hover svg { stroke: var(--accent); }
-    .footer-col h4 { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; }
-    .footer-col a { display: block; font-size: 0.85rem; color: var(--text-dim); margin-bottom: 10px; }
-    .footer-col a:hover { color: var(--text); }
-    .footer-col .newsletter { display: flex; margin-top: 12px; }
-    .footer-col .newsletter input { flex: 1; background: var(--bg-3); border: 1px solid var(--border); border-radius: 100px 0 0 100px; padding: 10px 16px; color: var(--text); font-family: inherit; font-size: 0.85rem; outline: none; }
-    .footer-col .newsletter button { background: var(--accent); color: #000; border: none; border-radius: 0 100px 100px 0; padding: 10px 20px; font-weight: 600; font-size: 0.85rem; cursor: pointer; }
-    .footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
-    .footer-bottom p { font-size: 0.78rem; color: var(--text-muted); }
-
-    /* === REVEAL === */
-    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16,1,0.3,1); }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    /* === RESPONSIVE === */
-    @media (max-width: 1024px) {
-      .hero-grid, .about-me-grid, .contact-grid { grid-template-columns: 1fr; }
-      .how-grid { grid-template-columns: 1fr 1fr; }
-      .footer-top { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 768px) {
-      .nav-center, .nav-right { display: none; }
-      .nav-toggle { display: flex; }
-      .nav-links { display: none; flex-direction: column; position: absolute; top: 72px; left: 0; width: 100%; background: rgba(0,0,0,0.95); padding: 24px; border-bottom: 1px solid var(--border); gap: 16px; }
-      .nav-links.open { display: flex; }
-      .benefits-grid, .testimonials-grid { grid-template-columns: 1fr; }
-      .features-grid, .projects-grid { grid-template-columns: 1fr; }
-      .exp-item { grid-template-columns: 1fr; gap: 8px; }
-      .how-grid { grid-template-columns: 1fr; }
-      .footer-top { grid-template-columns: 1fr; }
-      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
-      section { padding: 60px 0; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utkarsh Patel | Computational Drug Discovery Scientist</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+    </style>
 </head>
-<body>
+<body class="bg-slate-950 text-slate-100 min-h-screen antialiased selection:bg-blue-500 selection:text-white">
 
-<nav>
-  <div class="container">
-    <a href="#hero" class="nav-logo">
-      <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="#4ade80" stroke-width="2"/><text x="16" y="21" text-anchor="middle" fill="#4ade80" font-size="14" font-weight="800">UP</text></svg>
-      Utkarsh<span>.</span>
-    </a>
-    <div class="nav-center">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#experience">Experience</a>
-      <a href="#projects">Projects</a>
-      <a href="#publications">Research</a>
+    <!-- MASTER CONTAINER (Split-Screen Layout) -->
+    <div class="max-w-6xl mx-auto px-6 py-12 lg:py-24 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
+        
+        <!-- FLOATING CONTROL DECK (Left Column: Sticky Menu & Bio) -->
+        <aside class="lg:col-span-5 lg:sticky lg:top-24 h-fit flex flex-col justify-between space-y-8">
+            <div>
+                <!-- Identity Header -->
+                <header>
+                    <h1 class="text-3xl lg:text-4xl font-bold tracking-tight text-white">Utkarsh Patel</h1>
+                    <p class="text-lg text-blue-400 font-medium mt-2">Computational Drug Discovery Scientist</p>
+                    <p class="text-xs text-slate-400 mt-1 mono">PharmD &bull; MSc Pharmacology & Drug Discovery</p>
+                </header>
+
+                <p class="text-slate-400 text-sm mt-6 leading-relaxed max-w-sm">
+                    Combining clinical pharmacy insights with dry-lab computer-aided drug design (CADD)[cite: 3]. Engineering predictive machine learning pipelines and structural screening architectures to accelerate early-stage hit-to-lead development[cite: 3].
+                </p>
+
+                <!-- PERSISTENT SCROLLER / FLOATING NAVIGATION -->
+                <nav class="hidden lg:block mt-12">
+                    <ul class="space-y-4 text-xs font-semibold uppercase tracking-widest mono text-slate-500">
+                        <li>
+                            <a href="#about" class="flex items-center gap-3 group hover:text-blue-400 transition-colors">
+                                <span class="h-[1px] w-6 bg-slate-700 group-hover:w-12 group-hover:bg-blue-400 transition-all"></span>
+                                Overview
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#publications" class="flex items-center gap-3 group hover:text-blue-400 transition-colors">
+                                <span class="h-[1px] w-6 bg-slate-700 group-hover:w-12 group-hover:bg-blue-400 transition-all"></span>
+                                Publications
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#pipelines" class="flex items-center gap-3 group hover:text-blue-400 transition-colors">
+                                <span class="h-[1px] w-6 bg-slate-700 group-hover:w-12 group-hover:bg-blue-400 transition-all"></span>
+                                Computational Pipelines
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#experience" class="flex items-center gap-3 group hover:text-blue-400 transition-colors">
+                                <span class="h-[1px] w-6 bg-slate-700 group-hover:w-12 group-hover:bg-blue-400 transition-all"></span>
+                                Appointments
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#skills" class="flex items-center gap-3 group hover:text-blue-400 transition-colors">
+                                <span class="h-[1px] w-6 bg-slate-700 group-hover:w-12 group-hover:bg-blue-400 transition-all"></span>
+                                Tech Stack
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Global Metadata / Links -->
+            <div class="flex flex-wrap gap-4 text-xs mono text-slate-400 border-t border-slate-900 pt-6 max-w-sm">
+                <a href="mailto:utkarshcpatel24052001@gmail.com" class="hover:text-blue-400 transition-colors">&bull; Email</a>
+                <a href="https://github.com/UtkarshPatel2405" target="_blank" class="hover:text-blue-400 transition-colors">&bull; GitHub</a>
+                <a href="https://www.linkedin.com" target="_blank" class="hover:text-blue-400 transition-colors">&bull; LinkedIn</a>
+            </div>
+        </aside>
+
+        <!-- MAIN DATA STREAM (Right Column: Continuous Scroll Content) -->
+        <main class="lg:col-span-7 space-y-20 lg:space-y-32">
+
+            <!-- OVERVIEW SECTION -->
+            <section id="about" class="scroll-mt-24 text-slate-300 text-sm md:text-base leading-relaxed space-y-4">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-slate-500 mono lg:hidden">Overview</h2>
+                <p>
+                    I design computational pipelines that interface directly with clinical realities. By integrating a deep understanding of multi-class GPCR pharmacology with architectural workflow automation, I build predictive assets optimized for validation accuracy and throughput[cite: 3].
+                </p>
+                <p>
+                    My open-source software portfolio targets actionable pipeline issues: handling major class imbalances within structural bioactivity screens, optimizing consensus target metrics, and running high-density predictive validation arrays[cite: 3].
+                </p>
+            </section>
+
+            <!-- PEER-REVIEWED PUBLICATIONS SECTION -->
+            <section id="publications" class="scroll-mt-24 space-y-6">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-slate-500 mono">Peer-Reviewed Publications & Preprints</h2>
+                
+                <div class="space-y-6">
+                    <div class="p-5 rounded-xl border border-slate-900 bg-slate-950 hover:border-slate-800 transition-colors group">
+                        <span class="text-[10px] bg-slate-900 border border-slate-800 text-blue-400 font-medium px-2 py-0.5 rounded mono">Preprint &bull; 2026</span>
+                        <h3 class="text-base font-semibold text-white mt-3 group-hover:text-blue-400 transition-colors duration-200">
+                            Scaffold-Aware QSAR Modelling of Cyclin-Dependent Kinase 2 Inhibition: Multi-Model Benchmarking, Applicability Domain Assessment, and an Open-Source Decision-Support Platform.
+                        </h3>
+                        <p class="text-xs text-slate-400 mt-2">
+                            <strong class="text-slate-300">Utkarsh Patel</strong>. <em>ChemRxiv</em>. DOI: <span class="mono text-slate-300">10.26434/chemrxiv.15003014/v2</span>[cite: 3]
+                        </p>
+                        <a href="https://doi.org/10.26434/chemrxiv.15003014/v2" target="_blank" class="inline-block mt-3 text-xs text-blue-400 hover:underline font-medium mono">Access Source Architecture &rarr;</a>
+                    </div>
+
+                    <div class="p-5 rounded-xl border border-slate-900 bg-slate-950 hover:border-slate-800 transition-colors">
+                        <span class="text-[10px] bg-slate-900 border border-slate-800 text-slate-400 font-medium px-2 py-0.5 rounded mono">Journal Article &bull; 2025</span>
+                        <h3 class="text-base font-semibold text-white mt-3">
+                            Comparative Study of Gabapentin Monotherapy and Combination Therapy.
+                        </h3>
+                        <p class="text-xs text-slate-400 mt-2">
+                            <strong class="text-slate-300">Utkarsh Patel</strong>. <em>International Journal of Innovative Science and Research Technology</em>, 10(1). ISSN: <span class="mono">2456-2165</span>[cite: 3]
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- COMPUTATIONAL PIPELINES SECTION (TARGET PROJECTS) -->
+            <section id="pipelines" class="scroll-mt-24 space-y-6">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-slate-500 mono">Computational Pipelines</h2>
+                
+                <div class="space-y-4">
+                    <!-- Adenosine Selectivity Engine -->
+                    <div class="p-5 rounded-xl border border-slate-900 bg-slate-950 hover:border-slate-800 transition-colors">
+                        <div class="flex justify-between items-start gap-4">
+                            <h3 class="text-base font-semibold text-white mono">Adenosine Selectivity Engine</h3>
+                            <a href="https://github.com/UtkarshPatel2405/Adenosine_Selectivity_Model" target="_blank" class="text-xs text-blue-400 hover:underline mono font-medium">Source</a>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                            Built an open-source ML pipeline (Python, RDKit, XGBoost) predicting subtype selectivity across 1,000+ ChEMBL adenosine ligands[cite: 3]. Engineered Morgan fingerprint features, resolved severe target class imbalances, and deployed rigid cross-validation frameworks to maximize functional classification parameters[cite: 3].
+                        </p>
+                    </div>
+
+                    <!-- ChemBLitz -->
+                    <div class="p-5 rounded-xl border border-slate-900 bg-slate-950 hover:border-slate-800 transition-colors">
+                        <div class="flex justify-between items-start gap-4">
+                            <h3 class="text-base font-semibold text-white mono">ChemBLitz Platform</h3>
+                            <span class="text-xs text-slate-500 mono">v1.0</span>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                            End-to-end cheminformatics engine mapping CDK2 potency boundaries ($pIC_{50}$) utilizing advanced molecular descriptor parsing and underlying Random Forest regression tracking[cite: 3].
+                        </p>
+                    </div>
+
+                    <!-- ProCap Search -->
+                    <div class="p-5 rounded-xl border border-slate-900 bg-slate-950 hover:border-slate-800 transition-colors">
+                        <div class="flex justify-between items-start gap-4">
+                            <h3 class="text-base font-semibold text-white mono">ProCap Search</h3>
+                            <span class="text-xs text-slate-500 mono">Pipeline</span>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                            Bacterial capsule identification architecture built using a BioPython engine; extracts consensus tracking from multi-chain PDB records utilizing structured RMSD data arrays and alignment metrics[cite: 3].
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- APPOINTMENTS & RESEARCH EXPERIENCE SECTION -->
+            <section id="experience" class="scroll-mt-24 space-y-6">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-slate-500 mono">Appointments & Research Experience</h2>
+                
+                <div class="space-y-8">
+                    <!-- DiLS -->
+                    <div class="group relative grid grid-cols-1 md:grid-cols-4 md:gap-4">
+                        <span class="text-xs text-slate-500 mono md:col-span-1 py-0.5">2026 — Pres.</span>
+                        <div class="md:col-span-3 space-y-2">
+                            <h3 class="text-base font-semibold text-white group-hover:text-blue-400 transition-colors">
+                                Student Research Associate &bull; DiLS
+                            </h3>
+                            <p class="text-xs font-medium text-slate-400">Coventry University, UK[cite: 3]</p>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Engineered automated Python/RDKit profiling frameworks for molecular hit validation pipelines[cite: 3]. Running high-throughput parallelized docking experiments across targeted GPCR structural interfaces[cite: 3].
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Medisure -->
+                    <div class="group relative grid grid-cols-1 md:grid-cols-4 md:gap-4">
+                        <span class="text-xs text-slate-500 mono md:col-span-1 py-0.5">2023 — Pres.</span>
+                        <div class="md:col-span-3 space-y-2">
+                            <h3 class="text-base font-semibold text-white group-hover:text-blue-400 transition-colors">
+                                Founder
+                            </h3>
+                            <p class="text-xs font-medium text-slate-400">Medisure Health Tech LLP, India[cite: 3]</p>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Architected physical non-adherence warning devices using custom logic layouts; secured competitive technology validation financing via state-level SSIP awards[cite: 3].
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TECHNICAL STACK SECTION -->
+            <section id="skills" class="scroll-mt-24 space-y-6">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-slate-500 mono">Technical Architecture</h2>
+                
+                <div class="space-y-4 text-xs leading-relaxed mono text-slate-400">
+                    <div>
+                        <strong class="text-slate-200 block text-xs uppercase tracking-wider mb-1">ML & Cheminformatics:</strong>
+                        Python (RDKit, Pandas, NumPy, Scikit-learn, XGBoost, Streamlit, PyTorch), Selectivity Modeling, Fingerprint Vectors (Morgan, MACCS), Applicability Analytics, Conformal Validation[cite: 3].
+                    </div>
+                    <div>
+                        <strong class="text-slate-200 block text-xs uppercase tracking-wider mb-1">Structure-Based Design:</strong>
+                        AutoDock Vina, High-Throughput Screening Workflows, PLIF Analysis, PDB Parsing Pipelines, RMSD Tracking, PyMOL, UCSF Chimera[cite: 3].
+                    </div>
+                    <div>
+                        <strong class="text-slate-200 block text-xs uppercase tracking-wider mb-1">Infrastructure:</strong>
+                        Linux/Bash Execution, Parallel Compute Optimization, Git Control, CI/CD Engine Automation[cite: 3].
+                    </div>
+                </div>
+            </section>
+
+            <!-- MINIMALIST FOOTER -->
+            <footer class="text-center lg:text-left text-xs text-slate-600 mono pt-12 border-t border-slate-900">
+                &copy; 2026 Utkarsh Patel. Structured for algorithmic and executive evaluation.
+            </footer>
+
+        </main>
     </div>
-    <div class="nav-right">
-      <a href="#contact">Contact</a>
-      <a href="#contact" class="btn-nav">Let's Talk</a>
-    </div>
-    <button class="nav-toggle" id="nav-toggle"><span></span><span></span><span></span></button>
-  </div>
-  <div class="nav-links" id="nav-links">
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#experience">Experience</a>
-    <a href="#projects">Projects</a>
-    <a href="#publications">Research</a>
-    <a href="#contact">Contact</a>
-  </div>
-</nav>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="container">
-    <div class="hero-grid">
-      <div>
-        <div class="hero-tag"><span class="dot"></span> Seeking Drug Discovery Roles</div>
-        <h1>Computational <span class="highlight">Drug Discovery</span><br><span class="outline">Scientist</span></h1>
-        <p class="hero-sub">PharmD + MSc-trained scientist bridging clinical pharmacology and AI-driven drug design. Building open-source CADD tools that accelerate early-stage discovery pipelines.</p>
-        <a href="#contact" class="btn-hero">
-          Request Demo
-          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-        </a>
-      </div>
-      <div class="hero-image">
-        <div class="hero-image-bg">
-          <span class="initials">UP</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- LOGO BAR -->
-<div class="logo-bar">
-  <div class="container">
-    <p>Contributing to science at</p>
-    <div class="logo-grid">
-      <span>Coventry University</span>
-      <span>GMERS Hospital</span>
-      <span>ChEMBL</span>
-      <span>RCSB PDB</span>
-      <span>ChemRxiv</span>
-      <span>IJISRT</span>
-    </div>
-  </div>
-</div>
-
-<!-- ABOUT / FEATURES -->
-<section id="about">
-  <div class="container">
-    <div class="section-eyebrow reveal">About</div>
-    <h2 class="section-title reveal">Clinical Mind. <span style="color:var(--accent)">Computational Precision.</span></h2>
-    <div class="about-me-grid">
-      <div class="about-image-block reveal">
-        <span class="big-text">UP</span>
-        <div class="tag">
-          <strong>Utkarsh Patel</strong>
-          <span>PharmD &middot; MSc Pharmacology &amp; Drug Discovery</span>
-        </div>
-      </div>
-      <div class="reveal">
-        <div class="features-grid">
-          <div class="feature-card">
-            <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-            <h3>Open-Source CADD</h3>
-            <p>Three AI-powered drug discovery tools deployed on GitHub — target ID, QSAR, ADMET, virtual screening.</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-            <h3>Clinical + Computational</h3>
-            <p>Rare dual expertise: PharmD clinical pharmacology meets Python/RDKit/AI drug design.</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01"/><path d="M15 9h.01"/></svg></div>
-            <h3>Startup Founder</h3>
-            <p>SSIP grant recipient (INR 1.5L) for health-tech innovation. Patent-pending smart medication dispenser.</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
-            <h3>Peer-Reviewed Research</h3>
-            <p>Two publications including ChemRxiv preprint on scaffold-aware QSAR modelling of CDK2 inhibition.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS / SKILLS -->
-<div style="padding:60px 0;border-bottom:1px solid var(--border);">
-  <div class="container">
-    <div class="section-eyebrow reveal">How I Work</div>
-    <h2 class="section-title reveal">From Target to Lead</h2>
-    <div class="how-grid">
-      <div class="how-step reveal">
-        <div class="how-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
-        <h3>Target ID</h3>
-        <p>GPCR and kinase target identification via ChEMBL and PDB data mining.</p>
-      </div>
-      <div class="how-step reveal d2">
-        <div class="how-icon"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
-        <h3>QSAR Modelling</h3>
-        <p>Multi-model benchmarking with applicability domain and conformal prediction.</p>
-      </div>
-      <div class="how-step reveal d3">
-        <div class="how-icon"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
-        <h3>Virtual Screening</h3>
-        <p>AutoDock Vina docking, PLIF analysis, and fragment-based scaffold prioritisation.</p>
-      </div>
-      <div class="how-step reveal d4">
-        <div class="how-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-        <h3>ADMET &amp; Optimisation</h3>
-        <p>Drug-likeness filtering, PAINS screening, and pIC50-driven lead optimisation.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- THREE COL SKILLS -->
-<section id="skills">
-  <div class="container">
-    <div class="section-eyebrow reveal">Expertise</div>
-    <h2 class="section-title reveal">Technical <span style="color:var(--accent)">Toolkit</span></h2>
-    <div class="benefits-grid">
-      <div class="benefit-col reveal">
-        <h3>ML &amp; Cheminformatics</h3>
-        <ul>
-          <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Python, RDKit, Pandas, Scikit-learn</li>
-          <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>XGBoost, PyTorch, Deep Learning</li>
-          <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Morgan/ECFP fingerprints, QSAR/QSPR</li>
-          <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Multi-class selectivity modelling</li>
-          <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Conformal prediction, scaffold splitting</li>
-        </ul>
-      </div>
-      <div class="benefit-col reveal d2">
-        <h3>Computational SBDD</h3>
-        <ul>
-          <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>AutoDock Vina, molecular docking</li>
-          <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Virtual screening, PLIF analysis</li>
-          <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>PDB parsing, RMSD, sequence alignment</li>
-          <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>UCSF Chimera, PyMOL, py3Dmol</li>
-          <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Structure-based AI screening</li>
-        </ul>
-      </div>
-      <div class="benefit-col reveal d3">
-        <h3>Drug Discovery &amp; Clinical</h3>
-        <ul>
-          <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>ChEMBL / RCSB PDB APIs</li>
-          <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Drug-likeness (Lipinski/Veber), PAINS</li>
-          <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Pharmacovigilance, ADR reporting, GCP</li>
-          <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Antibiotic stewardship, patient counselling</li>
-          <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Docker, Streamlit, GitHub Actions CI/CD</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="container">
-    <div class="section-eyebrow reveal">Experience</div>
-    <h2 class="section-title reveal">Research &amp; Clinical <span style="color:var(--accent)">Career</span></h2>
-    <div class="exp-grid reveal">
-      <div class="exp-item">
-        <div class="exp-date">Mar 2026 — Present</div>
-        <div class="exp-content">
-          <h3>Student Research Associate</h3>
-          <div class="org">DiLS, Coventry University, UK</div>
-          <ul>
-            <li>Automated Python/RDKit cheminformatics pipeline for high-throughput hit identification; curated 1,000+ ChEMBL compounds for AI-driven adenosine receptor classification.</li>
-            <li>Executed parallelised AutoDock Vina virtual screening across GLP-1R binding sites with fragment-based scaffold analysis.</li>
-            <li>Deployed Streamlit analytics app reducing pharmacology post-processing time for the research team.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="exp-item">
-        <div class="exp-date">Sep 2024 — Jun 2025</div>
-        <div class="exp-content">
-          <h3>Clinical Pharmacist Intern</h3>
-          <div class="org">GMERS Hospital, Sola, India</div>
-          <ul>
-            <li>Audited clinical protocols across inpatient departments, flagging 50+ deviations and informing compliance improvements.</li>
-            <li>Designed root-cause-analysis safety checklist eliminating repeat documentation errors in high-risk medication workflows.</li>
-            <li>Analysed antibiotic prescribing patterns supporting 7% de-escalation initiative; counselled 100+ patients.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="exp-item">
-        <div class="exp-date">Jun 2023 — Dec 2024</div>
-        <div class="exp-content">
-          <h3>Clinical Operations Associate</h3>
-          <div class="org">Navkar Clinic, Gandhinagar, India</div>
-          <ul>
-            <li>Administered 200+ IV/IM/SC/ID injections across acute care settings with full patient safety compliance.</li>
-            <li>Screened high-risk prescriptions for drug-drug interactions, reducing adverse-event exposure risk.</li>
-            <li>Supported minor surgical procedures and delivered structured post-procedure guidance.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="exp-item">
-        <div class="exp-date">Jul 2023 — Present</div>
-        <div class="exp-content">
-          <h3>Founder</h3>
-          <div class="org">Medisure Health Tech LLP, Ahmedabad, India</div>
-          <ul>
-            <li>Developed smart medication-strip dispenser (patent filing in progress).</li>
-            <li>Secured INR 1.5L SSIP government grant for healthcare innovation.</li>
-            <li>Finalist, Government of Gujarat Healthcare Hackathon.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="container">
-    <div class="section-eyebrow reveal">Projects</div>
-    <h2 class="section-title reveal">Open-Source <span style="color:var(--accent)">Drug Discovery Tools</span></h2>
-    <div class="projects-grid">
-      <div class="project-card reveal">
-        <div class="tags"><span>Python</span><span>RDKit</span><span>XGBoost</span><span>PyTorch</span></div>
-        <h3>Adenosine Selectivity Engine</h3>
-        <p>Multi-target GPCR AI platform predicting subtype selectivity across 1,000+ ChEMBL adenosine ligands. Morgan fingerprint features, class imbalance resolved via SMOTE, cross-validated.</p>
-        <div class="arrow">View on GitHub &rarr;</div>
-      </div>
-      <div class="project-card reveal d2">
-        <div class="tags"><span>Streamlit</span><span>RDKit</span><span>Scikit-learn</span></div>
-        <h3>ChemBLitz — CDK2 AI Discovery</h3>
-        <p>End-to-end AI drug discovery web app predicting CDK2 inhibitory potency (pIC50) via Morgan fingerprints and Random Forest regression. Peer-reviewed preprint on ChemRxiv.</p>
-        <div class="arrow">View on GitHub &rarr;</div>
-      </div>
-      <div class="project-card reveal d3">
-        <div class="tags"><span>BioPython</span><span>Streamlit</span><span>PDB</span></div>
-        <h3>ProCap Search — Capsule ID Pipeline</h3>
-        <p>3-method consensus scoring (RMSD, sequence identity, distance matrix). BioPython backend with multi-chain PDB parsing; peak F1-score 0.94 on bacterial capsule identification.</p>
-        <div class="arrow">View on GitHub &rarr;</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section id="publications" style="padding-top:0;">
-  <div class="container">
-    <div class="section-eyebrow reveal">What People Say</div>
-    <h2 class="section-title reveal">Peer <span style="color:var(--accent)">Recognition</span></h2>
-    <div class="testimonials-grid">
-      <div class="testimonial-card reveal">
-        <div class="quote">"Utkarsh's ability to bridge clinical pharmacology with computational methods is exceptional. His cheminformatics pipeline significantly accelerated our GPCR research."</div>
-        <div class="author">— Research Supervisor, DiLS Coventry</div>
-      </div>
-      <div class="testimonial-card reveal d2">
-        <div class="quote">"The CDK2 prediction platform is incredibly well-built. A rare combination of pharmaceutical knowledge and software engineering skill."</div>
-        <div class="author">— Peer Reviewer, ChemRxiv</div>
-      </div>
-      <div class="testimonial-card reveal d3">
-        <div class="quote">"During his clinical internship, Utkarsh identified 50+ protocol deviations and implemented checklists that became department standards."</div>
-        <div class="author">— Clinical Lead, GMERS Hospital</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PUBLICATIONS -->
-<section id="publications">
-  <div class="container">
-    <div class="section-eyebrow reveal">Research</div>
-    <h2 class="section-title reveal">Publications &amp; <span style="color:var(--accent)">Preprints</span></h2>
-    <div class="pub-list reveal">
-      <div class="pub-item">
-        <div>
-          <div class="title">Scaffold-Aware QSAR Modelling of Cyclin-Dependent Kinase 2 Inhibition</div>
-          <div class="venue">Utkarsh Patel. ChemRxiv (2026).</div>
-        </div>
-        <div class="arrow">&rarr;</div>
-      </div>
-      <div class="pub-item">
-        <div>
-          <div class="title">Comparative Study of Gabapentin Monotherapy and Combination Therapy</div>
-          <div class="venue">Utkarsh Patel. IJISRT, Vol. 10, Issue 1 (2025). ISSN: 2456-2165.</div>
-        </div>
-        <div class="arrow">&rarr;</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<div class="cta-section">
-  <div class="container">
-    <h2 class="reveal">Ready to accelerate discovery?</h2>
-    <p style="color:var(--text-dim);margin-bottom:28px;font-size:0.95rem;">Open to computational drug discovery roles, research collaborations, and consulting.</p>
-    <a href="#contact" class="btn-hero reveal">
-      Drop me a line
-      <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-    </a>
-  </div>
-</div>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="container">
-    <div class="section-eyebrow reveal">Contact</div>
-    <h2 class="section-title reveal">Let's <span style="color:var(--accent)">collaborate.</span></h2>
-    <div class="contact-grid">
-      <div class="contact-info reveal">
-        <p>Based in Coventry, UK. Open to computational drug discovery roles, research collaborations, and consulting opportunities globally.</p>
-        <div class="contact-line"><span class="label">Email</span><a href="mailto:utkarshcpatel24052001@gmail.com">utkarshcpatel24052001@gmail.com</a></div>
-        <div class="contact-line"><span class="label">Phone</span><span class="value">+44 7799 394269</span></div>
-        <div class="contact-line"><span class="label">Location</span><span class="value">Coventry, UK</span></div>
-        <div class="contact-line"><span class="label">GitHub</span><a href="https://github.com/UtkarshPatel2405" target="_blank">github.com/UtkarshPatel2405</a></div>
-        <div class="contact-line"><span class="label">LinkedIn</span><a href="https://linkedin.com/in/utkarsh-patel-803b92219" target="_blank">utkarsh-patel</a></div>
-      </div>
-      <form class="contact-form reveal" id="contact-form">
-        <input type="text" placeholder="Full Name *" required>
-        <input type="email" placeholder="Email *" required>
-        <input type="text" placeholder="Company / Organisation">
-        <textarea placeholder="Message" required></textarea>
-        <button type="submit" class="btn-hero" style="align-self:flex-start;">
-          Send Message
-          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-        </button>
-      </form>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="container">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <div class="logo">Utkarsh<span>.</span></div>
-        <p style="color:var(--text-dim);font-size:0.85rem;">Computational Drug Discovery Scientist</p>
-        <div class="social">
-          <a href="mailto:utkarshcpatel24052001@gmail.com"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
-          <a href="https://github.com/UtkarshPatel2405" target="_blank"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg></a>
-          <a href="https://linkedin.com/in/utkarsh-patel-803b92219" target="_blank"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h4>Navigate</h4>
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#experience">Experience</a>
-        <a href="#publications">Research</a>
-      </div>
-      <div class="footer-col">
-        <h4>Connect</h4>
-        <a href="mailto:utkarshcpatel24052001@gmail.com">Email</a>
-        <a href="https://github.com/UtkarshPatel2405" target="_blank">GitHub</a>
-        <a href="https://linkedin.com/in/utkarsh-patel-803b92219" target="_blank">LinkedIn</a>
-      </div>
-      <div class="footer-col">
-        <h4>Get in touch</h4>
-        <p style="font-size:0.82rem;color:var(--text-dim);line-height:1.6;">Open for roles and collaborations in drug discovery and computational chemistry.</p>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 Utkarsh Patel. All rights reserved.</p>
-      <p>Built with &#x3C;/&#x3E; for drug discovery</p>
-    </div>
-  </div>
-</footer>
-
-<script>
-// reveal
-const obs = new IntersectionObserver(e => { e.forEach(i => { if (i.isIntersecting) i.target.classList.add('visible'); }); }, { threshold: 0.08 });
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-// nav active
-document.querySelectorAll('section[id]').forEach(s => {
-  window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-    document.querySelectorAll('.nav-center a, .nav-links a').forEach(a => {
-      const href = a.getAttribute('href');
-      if (href && href.startsWith('#')) {
-        const section = document.querySelector(href);
-        if (section) {
-          a.classList.toggle('active', scrollY >= section.offsetTop - 100 && scrollY < section.offsetTop + section.offsetHeight);
-        }
-      }
-    });
-  });
-});
-
-// mobile toggle
-document.getElementById('nav-toggle').addEventListener('click', () => {
-  document.getElementById('nav-links').classList.toggle('open');
-});
-document.querySelectorAll('#nav-links a').forEach(a => a.addEventListener('click', () => {
-  document.getElementById('nav-links').classList.remove('open');
-}));
-
-// form
-document.getElementById('contact-form').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const btn = this.querySelector('button');
-  const orig = btn.textContent;
-  btn.textContent = 'Sent!';
-  btn.style.pointerEvents = 'none';
-  setTimeout(() => { btn.textContent = orig; btn.style.pointerEvents = ''; }, 2500);
-  this.reset();
-});
-</script>
 </body>
 </html>
